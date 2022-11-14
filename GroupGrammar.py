@@ -1,5 +1,6 @@
 import sys
 from antlr4 import *
+from antlr4.tree.Trees import Trees
 from GroupLexer import GroupLexer
 from GroupParser import GroupParser
 
@@ -12,8 +13,8 @@ def main(argv):
     lexer = GroupLexer(in_)
     tokens = CommonTokenStream(lexer)
     parser = GroupParser(tokens)
-    tree = parser.prog()
-    print(tree.toStringTree(recog = parser))
+    tree = parser.start()
+    print(Trees.toStringTree(tree, None, parser))
 
 if __name__ == '__main__':
     main(sys.argv)

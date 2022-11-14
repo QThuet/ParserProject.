@@ -26,15 +26,6 @@ class GroupListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by GroupParser#HelloExpr.
-    def enterHelloExpr(self, ctx:GroupParser.HelloExprContext):
-        pass
-
-    # Exit a parse tree produced by GroupParser#HelloExpr.
-    def exitHelloExpr(self, ctx:GroupParser.HelloExprContext):
-        pass
-
-
     # Enter a parse tree produced by GroupParser#ParenExpr.
     def enterParenExpr(self, ctx:GroupParser.ParenExprContext):
         pass

@@ -16,7 +16,7 @@ public class GroupParser extends Parser {
 	protected static final PredictionContextCache _sharedContextCache =
 		new PredictionContextCache();
 	public static final int
-		T__0=1, T__1=2, T__2=3, T__3=4, T__4=5, T__5=6, HELLO=7, BYE=8, INT=9, 
+		T__0=1, T__1=2, T__2=3, T__3=4, T__4=5, T__5=6, T__6=7, BYE=8, INT=9, 
 		WS=10;
 	public static final int
 		RULE_expr = 0;
@@ -29,13 +29,13 @@ public class GroupParser extends Parser {
 
 	private static String[] makeLiteralNames() {
 		return new String[] {
-			null, "'*'", "'/'", "'+'", "'-'", "'('", "')'"
+			null, "'*'", "'/'", "'%'", "'+'", "'-'", "'('", "')'"
 		};
 	}
 	private static final String[] _LITERAL_NAMES = makeLiteralNames();
 	private static String[] makeSymbolicNames() {
 		return new String[] {
-			null, null, null, null, null, null, null, "HELLO", "BYE", "INT", "WS"
+			null, null, null, null, null, null, null, null, "BYE", "INT", "WS"
 		};
 	}
 	private static final String[] _SYMBOLIC_NAMES = makeSymbolicNames();
@@ -110,11 +110,6 @@ public class GroupParser extends Parser {
 		public TerminalNode BYE() { return getToken(GroupParser.BYE, 0); }
 		public ByeExprContext(ExprContext ctx) { copyFrom(ctx); }
 	}
-	public static class HelloExprContext extends ExprContext {
-		public Token atom;
-		public TerminalNode HELLO() { return getToken(GroupParser.HELLO, 0); }
-		public HelloExprContext(ExprContext ctx) { copyFrom(ctx); }
-	}
 	public static class ParenExprContext extends ExprContext {
 		public ExprContext expr() {
 			return getRuleContext(ExprContext.class,0);
@@ -150,7 +145,7 @@ public class GroupParser extends Parser {
 			int _alt;
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(10);
+			setState(9);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case INT:
@@ -163,26 +158,17 @@ public class GroupParser extends Parser {
 				((NumberExprContext)_localctx).atom = match(INT);
 				}
 				break;
-			case T__4:
+			case T__5:
 				{
 				_localctx = new ParenExprContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
 				setState(4);
-				match(T__4);
+				match(T__5);
 				setState(5);
 				expr(0);
 				setState(6);
-				match(T__5);
-				}
-				break;
-			case HELLO:
-				{
-				_localctx = new HelloExprContext(_localctx);
-				_ctx = _localctx;
-				_prevctx = _localctx;
-				setState(8);
-				((HelloExprContext)_localctx).atom = match(HELLO);
+				match(T__6);
 				}
 				break;
 			case BYE:
@@ -190,7 +176,7 @@ public class GroupParser extends Parser {
 				_localctx = new ByeExprContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
-				setState(9);
+				setState(8);
 				((ByeExprContext)_localctx).atom = match(BYE);
 				}
 				break;
@@ -198,7 +184,7 @@ public class GroupParser extends Parser {
 				throw new NoViableAltException(this);
 			}
 			_ctx.stop = _input.LT(-1);
-			setState(20);
+			setState(19);
 			_errHandler.sync(this);
 			_alt = getInterpreter().adaptivePredict(_input,2,_ctx);
 			while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER ) {
@@ -206,7 +192,7 @@ public class GroupParser extends Parser {
 					if ( _parseListeners!=null ) triggerExitRuleEvent();
 					_prevctx = _localctx;
 					{
-					setState(18);
+					setState(17);
 					_errHandler.sync(this);
 					switch ( getInterpreter().adaptivePredict(_input,1,_ctx) ) {
 					case 1:
@@ -214,12 +200,12 @@ public class GroupParser extends Parser {
 						_localctx = new InfixExprContext(new ExprContext(_parentctx, _parentState));
 						((InfixExprContext)_localctx).left = _prevctx;
 						pushNewRecursionContext(_localctx, _startState, RULE_expr);
+						setState(11);
+						if (!(precpred(_ctx, 5))) throw new FailedPredicateException(this, "precpred(_ctx, 5)");
 						setState(12);
-						if (!(precpred(_ctx, 6))) throw new FailedPredicateException(this, "precpred(_ctx, 6)");
-						setState(13);
 						((InfixExprContext)_localctx).op = _input.LT(1);
 						_la = _input.LA(1);
-						if ( !(_la==T__0 || _la==T__1) ) {
+						if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__0) | (1L << T__1) | (1L << T__2))) != 0)) ) {
 							((InfixExprContext)_localctx).op = (Token)_errHandler.recoverInline(this);
 						}
 						else {
@@ -227,8 +213,8 @@ public class GroupParser extends Parser {
 							_errHandler.reportMatch(this);
 							consume();
 						}
-						setState(14);
-						((InfixExprContext)_localctx).right = expr(7);
+						setState(13);
+						((InfixExprContext)_localctx).right = expr(6);
 						}
 						break;
 					case 2:
@@ -236,12 +222,12 @@ public class GroupParser extends Parser {
 						_localctx = new InfixExprContext(new ExprContext(_parentctx, _parentState));
 						((InfixExprContext)_localctx).left = _prevctx;
 						pushNewRecursionContext(_localctx, _startState, RULE_expr);
+						setState(14);
+						if (!(precpred(_ctx, 4))) throw new FailedPredicateException(this, "precpred(_ctx, 4)");
 						setState(15);
-						if (!(precpred(_ctx, 5))) throw new FailedPredicateException(this, "precpred(_ctx, 5)");
-						setState(16);
 						((InfixExprContext)_localctx).op = _input.LT(1);
 						_la = _input.LA(1);
-						if ( !(_la==T__2 || _la==T__3) ) {
+						if ( !(_la==T__3 || _la==T__4) ) {
 							((InfixExprContext)_localctx).op = (Token)_errHandler.recoverInline(this);
 						}
 						else {
@@ -249,14 +235,14 @@ public class GroupParser extends Parser {
 							_errHandler.reportMatch(this);
 							consume();
 						}
-						setState(17);
-						((InfixExprContext)_localctx).right = expr(6);
+						setState(16);
+						((InfixExprContext)_localctx).right = expr(5);
 						}
 						break;
 					}
 					} 
 				}
-				setState(22);
+				setState(21);
 				_errHandler.sync(this);
 				_alt = getInterpreter().adaptivePredict(_input,2,_ctx);
 			}
@@ -283,23 +269,22 @@ public class GroupParser extends Parser {
 	private boolean expr_sempred(ExprContext _localctx, int predIndex) {
 		switch (predIndex) {
 		case 0:
-			return precpred(_ctx, 6);
-		case 1:
 			return precpred(_ctx, 5);
+		case 1:
+			return precpred(_ctx, 4);
 		}
 		return true;
 	}
 
 	public static final String _serializedATN =
-		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\f\32\4\2\t\2\3\2"+
-		"\3\2\3\2\3\2\3\2\3\2\3\2\3\2\5\2\r\n\2\3\2\3\2\3\2\3\2\3\2\3\2\7\2\25"+
-		"\n\2\f\2\16\2\30\13\2\3\2\2\3\2\3\2\2\4\3\2\3\4\3\2\5\6\2\35\2\f\3\2\2"+
-		"\2\4\5\b\2\1\2\5\r\7\13\2\2\6\7\7\7\2\2\7\b\5\2\2\2\b\t\7\b\2\2\t\r\3"+
-		"\2\2\2\n\r\7\t\2\2\13\r\7\n\2\2\f\4\3\2\2\2\f\6\3\2\2\2\f\n\3\2\2\2\f"+
-		"\13\3\2\2\2\r\26\3\2\2\2\16\17\f\b\2\2\17\20\t\2\2\2\20\25\5\2\2\t\21"+
-		"\22\f\7\2\2\22\23\t\3\2\2\23\25\5\2\2\b\24\16\3\2\2\2\24\21\3\2\2\2\25"+
-		"\30\3\2\2\2\26\24\3\2\2\2\26\27\3\2\2\2\27\3\3\2\2\2\30\26\3\2\2\2\5\f"+
-		"\24\26";
+		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\f\31\4\2\t\2\3\2"+
+		"\3\2\3\2\3\2\3\2\3\2\3\2\5\2\f\n\2\3\2\3\2\3\2\3\2\3\2\3\2\7\2\24\n\2"+
+		"\f\2\16\2\27\13\2\3\2\2\3\2\3\2\2\4\3\2\3\5\3\2\6\7\2\33\2\13\3\2\2\2"+
+		"\4\5\b\2\1\2\5\f\7\13\2\2\6\7\7\b\2\2\7\b\5\2\2\2\b\t\7\t\2\2\t\f\3\2"+
+		"\2\2\n\f\7\n\2\2\13\4\3\2\2\2\13\6\3\2\2\2\13\n\3\2\2\2\f\25\3\2\2\2\r"+
+		"\16\f\7\2\2\16\17\t\2\2\2\17\24\5\2\2\b\20\21\f\6\2\2\21\22\t\3\2\2\22"+
+		"\24\5\2\2\7\23\r\3\2\2\2\23\20\3\2\2\2\24\27\3\2\2\2\25\23\3\2\2\2\25"+
+		"\26\3\2\2\2\26\3\3\2\2\2\27\25\3\2\2\2\5\13\23\25";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

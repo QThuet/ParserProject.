@@ -19,11 +19,6 @@ class GroupVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by GroupParser#HelloExpr.
-    def visitHelloExpr(self, ctx:GroupParser.HelloExprContext):
-        return self.visitChildren(ctx)
-
-
     # Visit a parse tree produced by GroupParser#ParenExpr.
     def visitParenExpr(self, ctx:GroupParser.ParenExprContext):
         return self.visitChildren(ctx)

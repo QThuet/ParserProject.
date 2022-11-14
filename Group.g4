@@ -1,13 +1,10 @@
 grammar Group;
-expr: left=expr op=('*'|'/') right=expr        # InfixExpr
+expr: left=expr op=('*'|'/'|'%') right=expr    # InfixExpr
     | left=expr op=('+'|'-') right=expr        # InfixExpr
     | atom=INT                                 # NumberExpr
     | '(' expr ')'                             # ParenExpr 
-    | atom=HELLO                               # HelloExpr
     | atom=BYE                                 # ByeExpr
     ;
-
-HELLO: ('hello'|'hi')  ;
-BYE  : ('bye'| 'tata') ;
+BYE  : ('bye'| 'exit') ;
 INT  : [0-9]+         ;
 WS   : [ \t]+ -> skip ;

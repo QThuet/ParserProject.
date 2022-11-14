@@ -3,10 +3,7 @@ from antlr4 import *
 from dist.GroupLexer import GroupLexer
 from dist.GroupParser import GroupParser
 from dist.GroupVisitor import GroupVisitor
-
-
-def get_username():
-    return "Quinton"
+from antlr4.tree.Trees import Trees
 
   
 class MyVisitor(GroupVisitor):
@@ -27,16 +24,13 @@ class MyVisitor(GroupVisitor):
         '-': lambda: l - r,
         '*': lambda: l * r,
         '/': lambda: l / r,
+        '%': lambda: l % r,
         }
         return operation.get(op, lambda: None)()
 
     def visitByeExpr(self, ctx):
-        print(f"goodbye {get_username()}")
+        print(f"goodbye")
         sys.exit(0)
-
-    def visitHelloExpr(self, ctx):
-        return (f"{ctx.getText()} {get_username()}")
-
 
 if __name__ == "__main__":
     while 1:
@@ -49,5 +43,7 @@ if __name__ == "__main__":
         tree = parser.expr()
         # evaluator
         visitor = MyVisitor()
+        #Trees.inspect(tree,parser)
+        print(Trees.toStringTree(tree, None, parser))
         output = visitor.visit(tree)
         print(output)
