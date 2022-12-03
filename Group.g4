@@ -3,22 +3,46 @@ grammar Group;
  * Parser Rules
  */
 
-single_input: assignment_expr
-            | mathmatical_expr
+tokens {INDENT , DEDENT}
+
+multi_input: (single_input)*;
+
+single_input: assignment_expr '\n'
+            | mathmatical_expr '\n'
+            | '\n'
             ;
 
-//assign_expr: ID ASSIGN arithmetic_expr;
-//augment_assign_expr: ID (ADD_ASSIGN | SUB_ASSIGN | MUL_ASSIGN | DIV_ASSIGN) arithmetic_expr;
-
-assignment_expr: left=Variable_expr (op=ASSIGNS right=mathmatical_expr)?;
+assignment_expr: left=variable_expr (op=ASSIGNS right=mathmatical_expr)?;
 
 mathmatical_expr: left=mathmatical_expr op=(MULTIPLY | DIVIDE | MOD) right=mathmatical_expr  
           | left=mathmatical_expr op=(ADD | MINUS) right=mathmatical_expr   
           | '('mathmatical_expr')'
           | INTEGER 
-          | Variable_expr;
+          | variable_expr;
 
-Variable_expr: ID;
+list_expr: variable_expr '=' '['(variable_expr | INTEGER | SRING)(','((variable_expr | INTEGER | SRING)))*']';
+
+variable_expr: ID;
+
+
+conditional_expr: mathmatical_expr CONDITIONAL mathmatical_expr
+                | variable_expr;
+
+star_conditional_expr:(NOT)?conditional_expr([AND|OR](NOT)?conditional_expr)*;
+
+if_expr     :'if''(' star_conditional_expr ')'':' 
+            (INDENT multi_input DEDENT)
+            ('elif''(' star_conditional_expr ')'':'
+            INDENT multi_input DEDENT)*
+            ('else'':'
+            INDENT multi_input DEDENT)?;
+
+for_expr:   'for' variable_expr 'in' list_expr':'
+            (INDENT multi_input DEDENT);
+
+while_expr: 'while' star_conditional_expr ':'
+            (INDENT multi_input DEDENT);
+
 
 /*
  * Lexer Rules
@@ -29,6 +53,9 @@ ID         : ID_START ID_CONTINUE* ;
 INTEGER    : NON_ZERO_DIGIT DIGIT* 
            | '0'
            ;
+SRING      : '\"'([a-z]|[A-Z]|SPACES|'\n')*'\0''\"';
+
+BOOL       : TRUE|FALSE;
 
 ASSIGN     : '=';
 ADD        : '+';
@@ -40,10 +67,29 @@ ADD_ASSIGN : '+=';
 SUB_ASSIGN : '-=';
 MUL_ASSIGN : '*=';
 DIV_ASSIGN : '/=';
+LESS       : '<';
+GREATER    : '>';
+EQLESS     : '<=';
+EQGREATER  : '>=';
+NOTEQ      : '!=';
+EQ         : '==';
+AND        : 'and';
+OR         : 'or';
+NOT        : 'not';
+TRUE       : 'True';
+FALSE      : 'False';
+
+BREAK      :'break';
+CONTINUE   :'continue';
+
+LOOPCONTROL : BREAK | CONTINUE;
 
 ASSIGNS    : ASSIGN | ADD_ASSIGN | SUB_ASSIGN | MUL_ASSIGN | DIV_ASSIGN ;
+CONDITIONAL: LESS | GREATER | EQLESS | EQGREATER | EQ | NOTEQ;
 
-WHITESPACE : SPACES -> skip ;
+COMMENTS : '#' ~ '\n' | '\"\"\"' [ ~|'\n']* '\"\"\"' -> skip;
+
+WHITESPACE : SPACES -> skip;
 
 /*
  * Fragments
