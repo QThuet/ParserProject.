@@ -14,6 +14,7 @@ The parser project for CS 4450 is an attempt to create a basic python 3 parser u
   * Follow the installation instructions from class and the website
 
 ## How To
-* 
+* To be written up
 
 ## Video Demos
+* To be added later
