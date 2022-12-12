@@ -13,7 +13,7 @@ def main(argv):
     lexer = GroupLexer(in_)
     tokens = CommonTokenStream(lexer)
     parser = GroupParser(tokens)
-    tree = parser.start()
+    tree = parser.python_file()
     print(Trees.toStringTree(tree, None, parser))
 
 if __name__ == '__main__':
